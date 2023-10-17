@@ -82,12 +82,16 @@ const ListText = styled.span`
 `
 
 const RemoveItem = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20px;
   height: 20px;
   opacity: 0;
   transition: all .3s;
   border-radius: 50%;
   background-color: #FFF;
+  color: #ef4444;
   
   &:hover {
     background-color: #f4f4f5;
@@ -149,7 +153,9 @@ const App = () => {
               First Text
             </ListText>
 
-            <RemoveItem />
+            <RemoveItem>
+              x
+            </RemoveItem>
           </ListItems>
         </ContainerList>
 

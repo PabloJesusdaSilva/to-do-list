@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/styled-components": "^5.1.28",
     "@types/typescript": "^2.0.0",
+    "lucide-react": "^0.288.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^6.1.0"
