@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.main`
@@ -31,6 +32,10 @@ const ListHeader = styled.header`
   color: #e4e4e7;
 `
 
+const ContainerList = styled.ul`
+  width: 100%;
+`
+
 const ListItems = styled.ul`
     display: flex;
     align-items: center;
@@ -41,6 +46,9 @@ const ListItems = styled.ul`
 `
 
 const ButtonCheck = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20px;
   height: 20px;
   transition: all .3s;
@@ -50,11 +58,20 @@ const ButtonCheck = styled.button`
   &:hover {
     background-color: #f4f4f5;
   }
-
-  &:focus {
-    background-color: #4ade80;
-  }
 ` 
+
+const DoneButtonCheck = styled.button`
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  border-radius: 50%;
+  transition: all .3s;
+  background: #4ade80;
+
+  ${ButtonCheck}:hover & {
+    opacity: 1;
+  }
+`
 
 const ListText = styled.span`
   flex: 1;
@@ -99,11 +116,15 @@ const ListInput = styled.input`
 `
 
 const App = () => {
+  const [isButtonCheck, setIsButtonCheck] = useState(false)
+
   const ButtonItemCheck = document.querySelectorAll('.button-check');
 
   const handleButtonCheck = () => {
-    ButtonItemCheck.forEach(() => {
-      console.log('OK, button is OK')
+    ButtonItemCheck.forEach((e: any) => {
+      addEventListener('click', (e) => {
+        setIsButtonCheck(!isButtonCheck);
+      })
     });
   }
 
@@ -113,18 +134,25 @@ const App = () => {
         <ListHeader>
           To Do List
         </ListHeader>
-        <ListItems>
-          <ButtonCheck 
-            className="button-check" 
-            onClick={handleButtonCheck}
-          />
 
-          <ListText>
-            First Text
-          </ListText>
+        <ContainerList>
+          <ListItems className="button-check">
+            <ButtonCheck onClick={handleButtonCheck}>
+              {
+                isButtonCheck
+                  ? <DoneButtonCheck />
+                  : ' '
+              }
+            </ButtonCheck>
 
-          <RemoveItem />
-        </ListItems>
+            <ListText>
+              First Text
+            </ListText>
+
+            <RemoveItem />
+          </ListItems>
+        </ContainerList>
+
         <ListInput
           type="text"
           placeholder='Digite uma tarefa'
