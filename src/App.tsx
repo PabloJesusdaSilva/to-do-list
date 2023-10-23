@@ -5,13 +5,13 @@ import Header from './components/ListHeader';
 import { 
   Container,
   ListContainer,
-  ContainerList,
+  ListTasks,
   ListItems,
-  ButtonCheck,
+  CheckButton,
   ListText,
-  ButtonRemove,
+  DeleteButton,
   InputContainer,
-  ButtonEnter,
+  ConfirmButton,
   InputTask
 } from './App';
 
@@ -45,23 +45,23 @@ const App = () => {
       <ListContainer>
         <Header />
 
-        <ContainerList>
+        <ListTasks>
           {
             state.tasks.map((task: any) => {
               return (
                 <ListItems key={task.name}>
-                  <ButtonCheck />
+                  <CheckButton />
 
                   <ListText>
                     {task.name}
                   </ListText>
 
-                  <ButtonRemove />
+                  <DeleteButton />
                 </ListItems>
               )
             })
           }
-        </ContainerList>
+        </ListTasks>
 
         <InputContainer>
           <InputTask 
@@ -70,14 +70,14 @@ const App = () => {
             placeholder='Digite uma tarefa'
           />
 
-          <ButtonEnter
+          <ConfirmButton
             onClick={() => {
               dispatch({ type: 'add-task', payload: inputValue });
               setInputValue('');
             }}
           >
             <CornerRightUpIcon />
-          </ButtonEnter>
+          </ConfirmButton>
         </InputContainer>
       </ListContainer>
     </Container>

@@ -19,7 +19,7 @@ export const ListContainer = styled.div`
   background-color: #FFF;
 `
 
-export const ContainerList = styled.div`
+export const ListTasks = styled.div`
   width: 100%;
 `
 
@@ -27,10 +27,10 @@ export const ListItems = styled.article`
     display: flex;
     width: 100%;
     padding: 20px;
-    background: #d4d4d8;
+    background: #e4e4e7;
 `
 
-export const ButtonCheck = styled.button`
+export const CheckButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,7 +53,7 @@ export const ListText = styled.p`
   color: #3f3f46;
 `
 
-export const ButtonRemove = styled.button`
+export const DeleteButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,7 +78,7 @@ export const InputContainer = styled.div`
   display: flex;
 `
 
-export const ButtonEnter = styled.button`
+export const ConfirmButton = styled.button`
   position: relative;
   top: 8px;
   right: 15px;
