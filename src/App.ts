@@ -91,7 +91,7 @@ export const TaskDelete = styled.span`
   width: 68%;
   height: 68%;
   border-radius: 50%;
-  transition: all .4s ease-in-out;
+  transition: all .3s ease-in-out;
 
   ${DeleteButton}:hover & {
     background: #ef4444;
@@ -121,9 +121,8 @@ export const InputTask = styled.input`
   background-color: #f4f4f5;
 
   &::placeholder {
-    padding-left: 18px;
     font-weight: 500;
     letter-spacing: 2px;
-    color: #27272a;
+    color: #71717a;
   }
 `

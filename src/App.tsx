@@ -43,10 +43,10 @@ const App = () => {
   const [taskCompleted, setTaskCompleted] = useState(false);
 
   const handleTaskCompleted = (e: any) => {
-    let task =  e.target
+    let task =  e
     console.log(task)
 
-    task = setTaskCompleted(!taskCompleted);
+    setTaskCompleted(!taskCompleted);
   }
 
   return (
@@ -58,8 +58,11 @@ const App = () => {
           {
             state.tasks.map((task: any) => {
               return (
-                <ListItems key={task.name}>
-                  <CheckButton onClick={handleTaskCompleted}>
+                <ListItems 
+                  key={task.name} 
+                  onClick={handleTaskCompleted}
+                >
+                  <CheckButton>
                     {
                       taskCompleted 
                         ? <TaskCompletedButton />
