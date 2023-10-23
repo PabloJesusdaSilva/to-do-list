@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import styled from 'styled-components';
+
+import { CornerRightUpIcon } from 'lucide-react';
 
 const Container = styled.main`
   display: flex;
@@ -10,7 +12,7 @@ const Container = styled.main`
   background: linear-gradient(to right, rgb(249, 168, 212), rgb(216, 180, 254), rgb(129, 140, 248));
 `
 
-const ListsItems = styled.div`
+const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 600px;
@@ -32,19 +34,16 @@ const ListHeader = styled.header`
   color: #e4e4e7;
 `
 
-const ContainerList = styled.ul`
+const ContainerList = styled.div`
   width: 100%;
 `
 
-const ListItems = styled.ul`
+const ListItems = styled.article`
     display: flex;
-    align-items: center;
     width: 100%;
-    height: 40px;
-    padding: 30px;
+    padding: 20px;
     background: #d4d4d8;
 `
-
 const ButtonCheck = styled.button`
   display: flex;
   justify-content: center;
@@ -60,20 +59,7 @@ const ButtonCheck = styled.button`
   }
 ` 
 
-const DoneButtonCheck = styled.button`
-  width: 14px;
-  height: 14px;
-  opacity: 0;
-  border-radius: 50%;
-  transition: all .3s;
-  background: #4ade80;
-
-  ${ButtonCheck}:hover & {
-    opacity: 1;
-  }
-`
-
-const ListText = styled.span`
+const ListText = styled.p`
   flex: 1;
   padding: 0 16px;
   font-size: 18px;
@@ -81,7 +67,7 @@ const ListText = styled.span`
   color: #3f3f46;
 `
 
-const RemoveItem = styled.button`
+const ButtonRemove = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,7 +88,20 @@ const RemoveItem = styled.button`
   }
 `
 
-const ListInput = styled.input`
+const InputContainer = styled.div`
+  display: flex;
+`
+
+const ButtonEnter = styled.button`
+  position: relative;
+  top: 8px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+`
+
+const InputTask = styled.input`
   display: flex;
   align-items: center;
   width: 100%;
@@ -119,51 +118,71 @@ const ListInput = styled.input`
   }
 `
 
-const App = () => {
-  const [isButtonCheck, setIsButtonCheck] = useState(false)
+const reducer = (state: any, action: any) => {
+  switch(action.type) {
+    case 'add-task':
+      return {
+        tasks: [
+          ...state.tasks,
+          {
+            name: action.payload,
+          }
+        ]
+      }
 
-  const ButtonItemCheck = document.querySelectorAll('.button-check');
-
-  const handleButtonCheck = () => {
-    ButtonItemCheck.forEach((e: any) => {
-      addEventListener('click', (e) => {
-        setIsButtonCheck(!isButtonCheck);
-      })
-    });
+    default:
+      return state;
   }
+}
+
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, { tasks: [] });
+
+  const [inputValue, setInputValue] = useState('');
+
 
   return (
     <Container>
-      <ListsItems>
+      <ListContainer>
         <ListHeader>
           To Do List
         </ListHeader>
 
         <ContainerList>
-          <ListItems className="button-check">
-            <ButtonCheck onClick={handleButtonCheck}>
-              {
-                isButtonCheck
-                  ? <DoneButtonCheck />
-                  : ' '
-              }
-            </ButtonCheck>
+          {
+            state.tasks.map((task: any) => {
+              return (
+                <ListItems key={task.name}>
+                  <ButtonCheck />
+                  
+                  <ListText>
+                    {task.name}
+                  </ListText>
 
-            <ListText>
-              First Text
-            </ListText>
-
-            <RemoveItem>
-              x
-            </RemoveItem>
-          </ListItems>
+                  <ButtonRemove />
+                </ListItems>
+              )
+            })
+          }
         </ContainerList>
 
-        <ListInput
-          type="text"
-          placeholder='Digite uma tarefa'
-        />
-      </ListsItems>
+        <InputContainer>
+          <InputTask 
+            value={inputValue}
+            onChange={(e: any) => setInputValue(e.target.value)}
+            placeholder='Digite uma tarefa'
+          />
+
+          <ButtonEnter
+            onClick={() => {
+              dispatch({ type: 'add-task', payload: inputValue });
+              setInputValue('');
+            }}
+          >
+            <CornerRightUpIcon />
+          </ButtonEnter>
+        </InputContainer>
+      </ListContainer>
     </Container>
   )
 }
