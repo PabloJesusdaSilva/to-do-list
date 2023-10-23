@@ -8,8 +8,10 @@ import {
   ListTasks,
   ListItems,
   CheckButton,
+  TaskCompletedButton,
   ListText,
   DeleteButton,
+  TaskDelete,
   InputContainer,
   ConfirmButton,
   InputTask
@@ -38,7 +40,14 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, { tasks: [] });
 
   const [inputValue, setInputValue] = useState('');
+  const [taskCompleted, setTaskCompleted] = useState(false);
 
+  const handleTaskCompleted = (e: any) => {
+    let task =  e.target
+    console.log(task)
+
+    task = setTaskCompleted(!taskCompleted);
+  }
 
   return (
     <Container>
@@ -50,13 +59,21 @@ const App = () => {
             state.tasks.map((task: any) => {
               return (
                 <ListItems key={task.name}>
-                  <CheckButton />
+                  <CheckButton onClick={handleTaskCompleted}>
+                    {
+                      taskCompleted 
+                        ? <TaskCompletedButton />
+                        : ' '
+                    }
+                  </CheckButton>
 
                   <ListText>
                     {task.name}
                   </ListText>
 
-                  <DeleteButton />
+                  <DeleteButton>
+                    <TaskDelete />
+                  </DeleteButton>
                 </ListItems>
               )
             })

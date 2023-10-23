@@ -45,6 +45,16 @@ export const CheckButton = styled.button`
   }
 ` 
 
+export const TaskCompletedButton = styled.span `
+  display: block;
+  position: relative;
+  top: 0.3px;
+  width: 68%;
+  height: 68%;
+  border-radius: 50%;
+  background: #4ade80;
+`
+
 export const ListText = styled.p`
   flex: 1;
   padding: 0 16px;
@@ -71,6 +81,20 @@ export const DeleteButton = styled.button`
 
   ${ListItems}:hover & {
     opacity: 1;
+  }
+`
+
+export const TaskDelete = styled.span`
+  display: block;
+  position: relative;
+  top: 0.3px;
+  width: 68%;
+  height: 68%;
+  border-radius: 50%;
+  transition: all .4s ease-in-out;
+
+  ${DeleteButton}:hover & {
+    background: #ef4444;
   }
 `
 
